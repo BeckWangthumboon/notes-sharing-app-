@@ -1,0 +1,17 @@
+.weather-container {
+  border-color: black;
+  border-style: solid;
+  padding: 40px;
+  background: rgb(0, 15, 36);
+  border-radius: 15px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 15, 36, 1) 0%,
+    rgba(9, 41, 121, 1) 0%,
+    rgba(0, 212, 255, 1) 92%
+  );
+}
+
+.weather-information p {
+  display: inline-block;
+}

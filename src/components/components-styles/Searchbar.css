@@ -1,0 +1,15 @@
+.search-bar-container {
+  display: block;
+  border-style: solid;
+  border-color: black;
+}
+
+.search-bar {
+  height: 30px;
+}
+
+.search-icon {
+  height: 30px;
+  border-style: solid;
+  border-color: black;
+}
