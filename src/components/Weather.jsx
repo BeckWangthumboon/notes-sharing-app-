@@ -5,15 +5,23 @@ import "./components-styles/Weather.css";
 
 const Weather = () => {
   return (
-    <div className="weather-container">
+    <div className="outside-container">
       <Searchbar />
-      <div className="weather-information">
-        <p className="city-name">Madison </p>
-        <p className="temperature">18C </p>
-        <p className="weather-name">Sunny </p>
-        <p className="">20/9 Feels like 19</p>
-        <p className="">Fri, 2:20 pm</p>
-        <img src={clearIcon}></img>
+      <div className="weather-information-container">
+        <div className="city-name-container">
+          <p className="city-name">Madison</p>
+        </div>
+        <div className="weather-image-information-container">
+          <div className="weather-information">
+            <p className="temperature">18&deg;</p>
+            <p className="weather-name">Sunny</p>
+            <p className="feels-like">20&deg;/9&deg; Feels like 19&deg;</p>
+            <p className="current-time">Fri, 2:20 pm</p>
+          </div>
+          <div className="weather-image-container">
+            <img src={clearIcon}></img>
+          </div>
+        </div>
       </div>
     </div>
   );

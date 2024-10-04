@@ -1,9 +1,9 @@
-.weather-container {
+.outside-container {
   border-color: black;
   border-style: solid;
   padding: 40px;
   background: rgb(0, 15, 36);
-  border-radius: 15px;
+  border-radius: 20px;
   background: linear-gradient(
     to bottom,
     rgba(0, 15, 36, 1) 0%,
@@ -12,6 +12,59 @@
   );
 }
 
-.weather-information p {
-  display: inline-block;
+.weather-information-container {
+  display: grid;
+}
+
+.weather-information-container p {
+  color: white;
+  font-weight: 00;
+}
+
+.city-name {
+  font-weight: 700;
+  font-size: 25px;
+}
+
+.weather-image-information-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.weather-information {
+  display: grid;
+  grid-template-rows: 1fr 1fr auto auto;
+}
+
+.temperature {
+  font-size: 70px;
+  text-align: left;
+  padding-left: 10px;
+  margin: 0px;
+  font-weight: 500;
+}
+
+.weather-name {
+  text-align: left;
+  padding-left: 20px;
+  margin: 0px;
+  font-weight: 700;
+  font-size: 26px;
+}
+
+.feels-like {
+  text-align: left;
+  padding-left: 20px;
+  margin: 0px;
+  align-self: end;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.current-time {
+  text-align: left;
+  padding-left: 20px;
+  margin: 0px;
+  align-self: end;
+  font-size: 12px;
 }
