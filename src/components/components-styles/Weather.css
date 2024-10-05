@@ -1,6 +1,4 @@
 .outside-container {
-  border-color: black;
-  border-style: solid;
   padding: 40px;
   background: rgb(0, 15, 36);
   border-radius: 20px;
@@ -10,6 +8,38 @@
     rgba(9, 41, 121, 1) 0%,
     rgba(0, 212, 255, 1) 92%
   );
+  position: relative;
+}
+
+.weather-app-title {
+  color: white;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 40px;
+}
+
+.intro-message {
+  color: white;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.dropdown-text {
+  color: white;
+  font-family: Roboto, Arial, sans-serif;
+  font-weight: 500;
+}
+
+.dropdown-icon {
+  color: white;
+  border: solid;
+  border-color: white;
 }
 
 .weather-information-container {

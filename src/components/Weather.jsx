@@ -17,23 +17,20 @@ const Weather = () => {
 
   const apiKey = "e809b342073f343a934e38fabdec2006";
 
-  const [weatherData, setWeatherData] = useState({
-    humidity: 0,
-    windSpeed: 0,
-    cityName: "Madison",
-    temp: 19,
-    maxTemp: 21,
-    minTemp: 9,
-    feelsLike: 20,
-    weatherName: "Sunny",
-  });
+  const [weatherData, setWeatherData] = useState(false);
   const [weatherIcon, setWeatherImage] = useState(clearIcon);
+  const [units, setUnits] = useState("metric");
 
   const search = async (city) => {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
       const response = await fetch(url);
       const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message);
+        return;
+      }
 
       setWeatherData({
         humidity: data.main.humidity,
@@ -77,7 +74,10 @@ const Weather = () => {
               break;
           }
       }
-    } catch (error) {}
+    } catch (error) {
+      setWeatherData(false);
+      console.log("Error in fetching data");
+    }
   };
 
   const { cityName, temp, maxTemp, minTemp, feelsLike, weatherName } =
@@ -85,26 +85,46 @@ const Weather = () => {
 
   return (
     <div className="outside-container">
-      <Searchbar onClickSearch={search} />
-      <div className="weather-information-container">
-        <div className="city-name-container">
-          <p className="city-name">{cityName}</p>
-        </div>
-        <div className="weather-image-information-container">
-          <div className="weather-information">
-            <p className="temperature">{temp}&deg;</p>
-            <p className="weather-name">{weatherName}</p>
-            <p className="feels-like">
-              {maxTemp}&deg;/{minTemp}&deg; Feels like {feelsLike}
-              &deg;
-            </p>
-            <p className="current-time">{date}</p>
-          </div>
-          <div className="weather-image-container">
-            <img src={weatherIcon}></img>
-          </div>
-        </div>
+      <div className="dropdown-menu">
+        <span className="dropdown-text">
+          {units === "metric" ? "C" : "F"}&deg;
+        </span>
+        <i class="bx bx-chevron-down dropdown-icon"></i>
+        <ul className="dropdown-options">
+          <li>C&deg;</li>
+          <li>F&deg;</li>
+        </ul>
       </div>
+
+      <h1 className="weather-app-title">Weather App</h1>
+      <Searchbar onClickSearch={search} />
+      {weatherData ? (
+        <>
+          <div className="weather-information-container">
+            <div className="city-name-container">
+              <p className="city-name">{cityName}</p>
+            </div>
+            <div className="weather-image-information-container">
+              <div className="weather-information">
+                <p className="temperature">{temp}&deg;</p>
+                <p className="weather-name">{weatherName}</p>
+                <p className="feels-like">
+                  {maxTemp}&deg;/{minTemp}&deg; Feels like {feelsLike}
+                  &deg;
+                </p>
+                <p className="current-time">{date}</p>
+              </div>
+              <div className="weather-image-container">
+                <img src={weatherIcon}></img>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <p className="intro-message">Enter a city name!</p>
+        </>
+      )}
     </div>
   );
 };

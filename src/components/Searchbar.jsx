@@ -11,6 +11,8 @@ const Searchbar = ({ onClickSearch }) => {
     if (city) {
       onClickSearch(city);
       inputRef.current.value = "";
+    } else {
+      alert("Enter City Name");
     }
   };
 
