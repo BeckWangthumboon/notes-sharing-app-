@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import clearIcon from "../assets/clear.png";
 import Searchbar from "./Searchbar";
 import "./components-styles/Weather.css";
@@ -7,6 +8,20 @@ import dayjs from "dayjs";
 const Weather = () => {
   const now = dayjs();
   const date = now.format("ddd, hh:mm A");
+
+  const search = async (city) => {
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${
+        import.meta.env.VITE_APP_ID
+      }`;
+      const response = await fetch(url);
+      const data = await response.json();
+    } catch (error) {}
+  };
+
+  /* useEffect(() => {
+    search("London");
+  }, []); */
 
   return (
     <div className="outside-container">
