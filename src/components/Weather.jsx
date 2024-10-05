@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import clearIcon from "../assets/clear.png";
 import cloudIcon from "../assets/cloud.png";
 import drizzleIcon from "../assets/drizzle.png";
@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 const Weather = () => {
   const now = dayjs();
   const date = now.format("ddd, hh:mm A");
+
   const apiKey = "e809b342073f343a934e38fabdec2006";
 
   const [weatherData, setWeatherData] = useState({
@@ -79,16 +80,12 @@ const Weather = () => {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    search("New Orleans");
-  }, []);
-
   const { cityName, temp, maxTemp, minTemp, feelsLike, weatherName } =
     weatherData;
 
   return (
     <div className="outside-container">
-      <Searchbar />
+      <Searchbar onClickSearch={search} />
       <div className="weather-information-container">
         <div className="city-name-container">
           <p className="city-name">{cityName}</p>
