@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import clearIcon from "../assets/clear.png";
 import cloudIcon from "../assets/cloud.png";
 import drizzleIcon from "../assets/drizzle.png";
-import humidityIcon from "../assets/humidity.png";
 import rainIcon from "../assets/rain.png";
 import snowIcon from "../assets/snow.png";
+import humidityIcon from "../assets/humidity.png";
 import windIcon from "../assets/wind.png";
 import Searchbar from "./Searchbar";
 import "./components-styles/Weather.css";
@@ -15,29 +15,6 @@ const Weather = () => {
   const now = dayjs();
   const date = now.format("ddd, hh:mm A");
   const apiKey = "e809b342073f343a934e38fabdec2006";
-
-  const search = async (city) => {
-    try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      setWeatherData({
-        humidity: data.main.humidity,
-        windSpeed: data.wind.speed,
-        cityName: data.name,
-        temp: Math.round(data.main.temp),
-        maxTemp: Math.round(data.main.temp_max),
-        minTemp: Math.round(data.main.temp_min),
-        feelsLike: Math.round(data.main.feels_like),
-        weatherName: data.weather.main,
-      });
-      console.log(data);
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    search("Madison");
-  }, []);
 
   const [weatherData, setWeatherData] = useState({
     humidity: 0,
@@ -50,6 +27,61 @@ const Weather = () => {
     weatherName: "Sunny",
   });
   const [weatherIcon, setWeatherImage] = useState(clearIcon);
+
+  const search = async (city) => {
+    try {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      setWeatherData({
+        humidity: data.main.humidity,
+        windSpeed: data.wind.speed,
+        cityName: data.name,
+        temp: Math.round(data.main.temp),
+        maxTemp: Math.round(data.main.temp_max),
+        minTemp: Math.round(data.main.temp_min),
+        feelsLike: Math.round(data.main.feels_like),
+        weatherName: data.weather[0].main,
+        weatherId: String(data.weather[0].id),
+      });
+
+      const weatherId = String(data.weather[0].id);
+      switch (weatherId) {
+        case "800":
+          setWeatherImage(clearIcon);
+          break;
+        default:
+          switch (weatherId[0]) {
+            case "2":
+              setWeatherImage(rainIcon);
+              break;
+            case "3":
+              setWeatherImage(drizzleIcon);
+              break;
+            case "5":
+              setWeatherImage(rainIcon);
+              break;
+            case "6":
+              setWeatherImage(snowIcon);
+              break;
+            case "7":
+              setWeatherImage(cloudIcon);
+              break;
+            case "8":
+              setWeatherImage(cloudIcon);
+              break;
+            default:
+              setWeatherImage(clearIcon);
+              break;
+          }
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    search("New Orleans");
+  }, []);
 
   const { cityName, temp, maxTemp, minTemp, feelsLike, weatherName } =
     weatherData;
