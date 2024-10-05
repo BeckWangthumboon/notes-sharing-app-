@@ -5,8 +5,6 @@ import cloudIcon from "../assets/cloud.png";
 import drizzleIcon from "../assets/drizzle.png";
 import rainIcon from "../assets/rain.png";
 import snowIcon from "../assets/snow.png";
-import humidityIcon from "../assets/humidity.png";
-import windIcon from "../assets/wind.png";
 import Searchbar from "./Searchbar";
 import "./components-styles/Weather.css";
 import dayjs from "dayjs";
@@ -85,15 +83,15 @@ const Weather = () => {
 
   return (
     <div className="outside-container">
-      <div className="dropdown-menu">
-        <span className="dropdown-text">
+      <div className="dropdown-menu-container">
+        <button className="dropdown-button">
           {units === "metric" ? "C" : "F"}&deg;
-        </span>
-        <i class="bx bx-chevron-down dropdown-icon"></i>
-        <ul className="dropdown-options">
-          <li>C&deg;</li>
-          <li>F&deg;</li>
-        </ul>
+          <i class="bx bx-chevron-down dropdown-icon"></i>
+        </button>
+        <div className="options-menu">
+          <p className="options top-option">C&deg;</p>
+          <p className="options bottom-option">F&deg;</p>
+        </div>
       </div>
 
       <h1 className="weather-app-title">Weather App</h1>
