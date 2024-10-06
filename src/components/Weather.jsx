@@ -34,7 +34,7 @@ const Weather = () => {
   const handleUnitSelect = (unit) => {
     setUnits(unit);
     if (weatherData.cityName) {
-      search(weatherData.cityName);
+      search(weatherData.cityName, unit);
     }
   };
 
