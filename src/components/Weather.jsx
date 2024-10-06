@@ -8,6 +8,7 @@ import snowIcon from "../assets/snow.png";
 import Searchbar from "./Searchbar";
 import "./components-styles/Weather.css";
 import dayjs from "dayjs";
+import Dropdown from "./Dropdown";
 
 const Weather = () => {
   const now = dayjs();
@@ -15,13 +16,31 @@ const Weather = () => {
 
   const apiKey = "e809b342073f343a934e38fabdec2006";
 
+  const dropdownOptions = [
+    {
+      unit: "C",
+      system: "metric",
+    },
+    {
+      unit: "F",
+      system: "imperial",
+    },
+  ];
+
   const [weatherData, setWeatherData] = useState(false);
   const [weatherIcon, setWeatherImage] = useState(clearIcon);
   const [units, setUnits] = useState("metric");
 
-  const search = async (city) => {
+  const handleUnitSelect = (unit) => {
+    setUnits(unit);
+    if (weatherData.cityName) {
+      search(weatherData.cityName);
+    }
+  };
+
+  const search = async (city, unitSystem = units) => {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unitSystem}&appid=${apiKey}`;
       const response = await fetch(url);
       const data = await response.json();
 
@@ -83,16 +102,10 @@ const Weather = () => {
 
   return (
     <div className="outside-container">
-      <div className="dropdown-menu-container">
-        <button className="dropdown-button">
-          {units === "metric" ? "C" : "F"}&deg;
-          <i class="bx bx-chevron-down dropdown-icon"></i>
-        </button>
-        <div className="options-menu">
-          <p className="options top-option">C&deg;</p>
-          <p className="options bottom-option">F&deg;</p>
-        </div>
-      </div>
+      <Dropdown
+        dropdownOptions={dropdownOptions}
+        onUnitSelect={handleUnitSelect}
+      />
 
       <h1 className="weather-app-title">Weather App</h1>
       <Searchbar onClickSearch={search} />
